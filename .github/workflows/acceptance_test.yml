@@ -22,6 +22,8 @@ jobs:
       - uses: actions/setup-go@v5.2.0
         with:
           go-version: '1.23'
+      - name: Show number of CPU cores
+        run: nproc
       - name: Run tests
         timeout-minutes: 120
         env:
@@ -32,4 +34,4 @@ jobs:
           DNS_HOST: ${{ secrets.DNS_HOST }}
         run: |
           go list ./... | grep -v 'vendor' | grep -v '^github.com/infobloxopen/terraform-provider-bloxone$' | \
-            xargs -n1 -P$(nproc) go test -v -cover -parallel=1 -timeout=120m
+            xargs -n1 -P2 go test -v -cover -parallel=1 -timeout=120m
