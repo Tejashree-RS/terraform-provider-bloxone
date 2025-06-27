@@ -32,4 +32,4 @@ jobs:
           DNS_HOST: ${{ secrets.DNS_HOST }}
         run: |
           go list ./... | grep -v 'vendor' | grep -v '^github.com/infobloxopen/terraform-provider-bloxone$' | \
-            xargs -n1 -P8 go test -v -cover -parallel=1 -timeout=120m
+            xargs -n1 -P$(nproc) go test -v -cover -parallel=1 -timeout=120m
