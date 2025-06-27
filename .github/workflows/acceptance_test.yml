@@ -31,4 +31,5 @@ jobs:
           DHCP_HOST: ${{ secrets.DHCP_HOST }}
           DNS_HOST: ${{ secrets.DNS_HOST }}
         run: |
-          $(go list ./... | grep -v 'vendor') | xargs -n1 -P8 go test -v -cover -parallel=1 -timeout=120m
+          go list ./... | grep -v 'vendor' | grep -v '^github.com/infobloxopen/terraform-provider-bloxone$' | \
+            xargs -n1 -P8 go test -v -cover -parallel=1 -timeout=120m
