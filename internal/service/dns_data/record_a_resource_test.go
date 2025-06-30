@@ -622,7 +622,7 @@ data "bloxone_dns_ptr_records" "test" {
 	filters = {
 		zone = bloxone_dns_auth_zone.rmz.id
 	}   
-	depends_on = [bloxone_dns_a_record.test_options]
+	depends_on = [bloxone_dns_a_record.test_options, bloxone_dns_auth_zone.rmz]
 }
 
 resource "bloxone_dns_auth_zone" "rmz" {
