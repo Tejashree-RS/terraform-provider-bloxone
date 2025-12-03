@@ -29,11 +29,11 @@ func TestAccAddressBlockResource_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			// Create and Read
 			{
-				Config: testAccAddressBlockBasicConfig(spaceName, "192.168.0.0", "16"),
+				Config: testAccAddressBlockBasicConfig(spaceName, "162.168.0.0", "16"),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAddressBlockExists(context.Background(), resourceName, &v),
 					// TODO: check and validate these
-					resource.TestCheckResourceAttr(resourceName, "address", "192.168.0.0"),
+					resource.TestCheckResourceAttr(resourceName, "address", "162.168.0.0"),
 					resource.TestCheckResourceAttrPair(resourceName, "space", "bloxone_ipam_ip_space.test", "id"),
 					// Test Read Only fields
 					resource.TestCheckResourceAttrSet(resourceName, "asm_config.%"),
@@ -71,7 +71,7 @@ func TestAccAddressBlockResource_disappears(t *testing.T) {
 		CheckDestroy:             testAccCheckAddressBlockDestroy(context.Background(), &v),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccAddressBlockBasicConfig(spaceName, "192.168.0.0", "16"),
+				Config: testAccAddressBlockBasicConfig(spaceName, "152.168.0.0", "16"),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAddressBlockExists(context.Background(), resourceName, &v),
 					testAccCheckAddressBlockDisappears(context.Background(), &v),
@@ -93,19 +93,19 @@ func TestAccAddressBlockResource_Address(t *testing.T) {
 		Steps: []resource.TestStep{
 			// Create and Read
 			{
-				Config: testAccAddressBlockBasicConfig(spaceName, "192.168.0.0", "16"),
+				Config: testAccAddressBlockBasicConfig(spaceName, "152.168.0.0", "16"),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAddressBlockExists(context.Background(), resourceName, &v1),
-					resource.TestCheckResourceAttr(resourceName, "address", "192.168.0.0"),
+					resource.TestCheckResourceAttr(resourceName, "address", "152.168.0.0"),
 				),
 			},
 			// Update and Read
 			{
-				Config: testAccAddressBlockBasicConfig(spaceName, "10.0.0.0", "16"),
+				Config: testAccAddressBlockBasicConfig(spaceName, "18.0.0.0", "16"),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAddressBlockDestroy(context.Background(), &v1),
 					testAccCheckAddressBlockExists(context.Background(), resourceName, &v2),
-					resource.TestCheckResourceAttr(resourceName, "address", "10.0.0.0"),
+					resource.TestCheckResourceAttr(resourceName, "address", "18.0.0.0"),
 				),
 			},
 			// Delete testing automatically occurs in TestCase
@@ -124,7 +124,7 @@ func TestAccAddressBlockResource_AsmConfig(t *testing.T) {
 		Steps: []resource.TestStep{
 			// Create and Read
 			{
-				Config: testAccAddressBlockAsmConfig(spaceName, "10.0.0.0", "16", 70, true, true, 12, 40, "count", 40, 30, 30, "2020-01-10T10:11:22Z"),
+				Config: testAccAddressBlockAsmConfig(spaceName, "17.0.0.0", "16", 70, true, true, 12, 40, "count", 40, 30, 30, "2020-01-10T10:11:22Z"),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAddressBlockExists(context.Background(), resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "asm_config.asm_threshold", "70"),
@@ -141,7 +141,7 @@ func TestAccAddressBlockResource_AsmConfig(t *testing.T) {
 			},
 			// Update and Read
 			{
-				Config: testAccAddressBlockAsmConfig(spaceName, "10.0.0.0", "16", 90, false, false, 14, 60, "count", 40, 60, 50, "2020-01-10T10:11:22Z"),
+				Config: testAccAddressBlockAsmConfig(spaceName, "17.0.0.0", "16", 90, false, false, 14, 60, "count", 40, 60, 50, "2020-01-10T10:11:22Z"),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAddressBlockExists(context.Background(), resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "asm_config.asm_threshold", "90"),
